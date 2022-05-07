@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordle_solver/services/solver.dart';
 
 void main() {
   runApp(const MyApp());
