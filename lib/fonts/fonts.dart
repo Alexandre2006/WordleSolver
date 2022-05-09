@@ -1,2 +1,3 @@
-const String HelveticaNeue = 'HelveticaNeue';
-const String ClearSans = 'ClearSans';
+const String helveticaNeue = 'HelveticaNeue';
+const String clearSans = 'ClearSans';
+const String karnakCondensed = 'KarnakCondensed';

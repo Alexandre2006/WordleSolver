@@ -1,6 +1,8 @@
 import 'package:tuple/tuple.dart';
+import 'package:wordle_solver/data/allwords5.dart';
 import 'package:wordle_solver/data/words.dart';
-import 'package:wordle_solver/services/letterutils.dart';
+import 'package:wordle_solver/global/sharedpreferences.dart';
+import 'package:wordle_solver/services/letter_utils.dart';
 
 enum solveStatus { unsolved, solved, failed }
 
@@ -10,17 +12,21 @@ class Solver {
   List<String> previousGuesses = [];
 
   // Configuration Variables (Final)
-  final int length;
+  late final int length;
 
   // Internal Variables (Private)
   late List<List<String>> _antiConfirmedPositions;
-  Map<String, int> _guaranteedLetterCount = {};
-  Map<String, int> _minimumLetterCount = {};
+  final Map<String, int> _guaranteedLetterCount = {};
+  final Map<String, int> _minimumLetterCount = {};
   late List<String> _confirmedPositions;
   List<String> _solutions = [];
 
   // Instantiation - Create Object
-  Solver(this.length) {
+  Solver() {
+    // Setup Length
+    length =
+        sharedPreferences.getInt("dev.thinkalex.solver.wordle_length") ?? 5;
+
     // Initialize Variables
     _confirmedPositions = List.filled(length, "");
     _antiConfirmedPositions = List.filled(length, []);
@@ -39,7 +45,7 @@ class Solver {
     bool valid = true;
 
     // Get letters in word
-    Map<String, int> wordLetters = countLetters(word);
+    final Map<String, int> wordLetters = countLetters(word);
 
     // Step 1: Minimum Letter Count
     _minimumLetterCount.forEach((letter, letterCount) {
@@ -61,7 +67,7 @@ class Solver {
 
     // Step 3: Check exact positions
     int i = 0;
-    for (var letter in _confirmedPositions) {
+    for (final letter in _confirmedPositions) {
       if (letter != "" && word[i] != letter) {
         valid = false;
       }
@@ -72,7 +78,7 @@ class Solver {
 
     // Step 4: Check invalid positions
     i = 0;
-    for (var letterList in _antiConfirmedPositions) {
+    for (final letterList in _antiConfirmedPositions) {
       if (letterList.contains(word[i])) {
         valid = false;
       }
@@ -85,8 +91,8 @@ class Solver {
 
   void _update(String word, List<int> colors) {
     // Fetch Data
-    Map<String, int> guessLetterCount = countLetters(word);
-    Map<String, int> guessLetterCountConfirmed =
+    final Map<String, int> guessLetterCount = countLetters(word);
+    final Map<String, int> guessLetterCountConfirmed =
         countLetters(word, colors: colors, validator: [1, 2]);
 
     // Gather Letter Count Data
@@ -104,7 +110,7 @@ class Solver {
 
     // Gather confirmed positions
     int i = 0;
-    for (var color in colors) {
+    for (final color in colors) {
       if (color == 2) {
         _confirmedPositions[i] = word[i];
       } else if (color == 1) {
@@ -115,13 +121,13 @@ class Solver {
   }
 
   void _removeAllInvalidGuesses() {
-    List<String> toRemove = [];
-    for (var solution in _solutions) {
+    final List<String> toRemove = [];
+    for (final solution in _solutions) {
       if (!_checkWord(solution)) {
         toRemove.add(solution);
       }
     }
-    for (var removal in toRemove) {
+    for (final removal in toRemove) {
       _solutions.remove(removal);
     }
   }
@@ -145,5 +151,13 @@ class Solver {
     } else {
       return Tuple2(_solutions.first, solveStatus.unsolved);
     }
+  }
+
+  // Guess Validator
+  bool validateGuess(String guess) {
+    if (length == 5) {
+      return allWords5.contains(guess);
+    }
+    return words[length]!.contains(guess);
   }
 }
