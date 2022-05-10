@@ -6,7 +6,6 @@ class WordleBox extends StatefulWidget {
   WordleBox({
     Key? key,
     required this.controller,
-    required this.focusNode,
     required this.onEmptied,
     required this.onFilled,
     required this.onColorChange,
@@ -15,7 +14,6 @@ class WordleBox extends StatefulWidget {
   }) : super(key: key);
 
   TextEditingController controller;
-  FocusNode focusNode;
   Function() onEmptied;
   Function() onFilled;
   Function(int) onColorChange;
@@ -71,7 +69,6 @@ class _WordleBoxState extends State<WordleBox> {
                 ),
                 child: TextField(
                   controller: widget.controller,
-                  focusNode: widget.focusNode,
                   style: const TextStyle(
                     fontFamily: clearSans,
                     fontSize: 30,
@@ -96,19 +93,19 @@ class _WordleBoxState extends State<WordleBox> {
                   textAlign: TextAlign.center,
                   onChanged: (String newValue) {
                     if (newValue == "\u200b" || newValue == "") {
-                      widget.onEmptied();
                       widget.controller.text = "\u200b";
                       widget.controller.selection = TextSelection.fromPosition(
                         const TextPosition(offset: 1),
                       );
+                      widget.onEmptied();
                     } else if (RegExp("[a-zA-Z]")
                         .hasMatch(newValue.characters.last)) {
-                      widget.onFilled();
                       widget.controller.text =
                           "\u200b${newValue.characters.last.toUpperCase()}";
                       widget.controller.selection = TextSelection.fromPosition(
                         const TextPosition(offset: 2),
                       );
+                      widget.onFilled();
                     } else {
                       widget.controller.text =
                           "\u200b${newValue.substring(newValue.length - 2, newValue.length - 1)}";
@@ -142,9 +139,3 @@ class _WordleBoxState extends State<WordleBox> {
     );
   }
 }
-
-// Way to access Text    - TextEditinController
-// Way to access focus   - FocusNode
-// Way to switch focus   - OnFilled - OnEmptied
-// Way to access color   - Color
-// Way to mark active / not - enabled

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:wordle_solver/data/allwords5.dart';
 import 'package:wordle_solver/data/words.dart';
@@ -6,7 +7,7 @@ import 'package:wordle_solver/services/letter_utils.dart';
 
 enum solveStatus { unsolved, solved, failed }
 
-class Solver {
+class Solver with ChangeNotifier {
   // Shared Variables (Public)
   List<List<int>> previousColors = [];
   List<String> previousGuesses = [];
@@ -145,6 +146,12 @@ class Solver {
 
     // Return optimal solution
     if (_solutions.isEmpty) {
+      // Retry before returning
+      _solutions = words[length]!;
+      _removeAllInvalidGuesses();
+    }
+
+    if (_solutions.isEmpty) {
       return const Tuple2("XXXXX", solveStatus.failed);
     } else if (_solutions.length == 1) {
       return Tuple2(_solutions.first, solveStatus.solved);
@@ -156,6 +163,7 @@ class Solver {
   // Guess Validator
   bool validateGuess(String guess) {
     if (length == 5) {
+      print(allWords5.contains(guess));
       return allWords5.contains(guess);
     }
     return words[length]!.contains(guess);

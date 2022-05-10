@@ -1,4 +1,4 @@
-List<String> allWords = [
+final List<String> allWords = [
   "aa",
   "aah",
   "aahed",

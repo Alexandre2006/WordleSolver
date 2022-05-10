@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wordle_solver/services/letter_utils.dart';
 import 'package:wordle_solver/shared/wordle_box.dart';
 
 class WordleRow extends StatefulWidget {
@@ -8,8 +7,9 @@ class WordleRow extends StatefulWidget {
     required this.length,
     this.enabled = false,
     required this.colors,
-    this.text = "               ",
+    this.text = "",
   }) : super(key: key);
+
   int length;
   bool enabled;
   List<int> colors;
@@ -21,7 +21,19 @@ class WordleRow extends StatefulWidget {
 
 class _WordleRowState extends State<WordleRow> {
   List<TextEditingController> controllers = [];
-  List<FocusNode> focusNodes = [];
+
+  String getText() {
+    String text = "";
+    for (final TextEditingController controller in controllers) {
+      if (controller.text != "\u200b" && controller.text != " ") {
+        text += controller.text.characters.last;
+      } else {
+        text += " ";
+      }
+    }
+    print(text);
+    return text;
+  }
 
   @override
   void initState() {
@@ -46,11 +58,6 @@ class _WordleRowState extends State<WordleRow> {
         controllers[i].text = "\u200b${widget.text[i]}";
       }
     }
-
-    // Configure Focus Nodes
-    for (int i = 0; i < widget.length; i++) {
-      focusNodes.add(FocusNode());
-    }
   }
 
   @override
@@ -59,78 +66,30 @@ class _WordleRowState extends State<WordleRow> {
       alignment: Alignment.center,
       height: widget.enabled ? 104 : 54,
       width: MediaQuery.of(context).size.width - 20,
-      child: Center(
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.length,
-          itemBuilder: (BuildContext context, int number) {
-            return WordleBox(
-              enabled: widget.enabled,
-              color: widget.colors[number],
-              controller: controllers[number],
-              focusNode: focusNodes[number],
-              onEmptied: number > 0
-                  ? () {
-                      // Focus Node
-                      focusNodes[number - 1].requestFocus();
-                      // Update text
-                      widget.text = replaceCharAt(widget.text, number, " ");
-                    }
-                  : () {
-                      // Update text
-                      if (widget.text.length != widget.length) {
-                        widget.text = String.fromCharCodes(
-                          Iterable.generate(
-                            widget.length,
-                            (_) => ' '.codeUnits.first,
-                          ),
-                        );
-                      }
-                      widget.text = replaceCharAt(widget.text, number, " ");
-                    },
-              onFilled: number < widget.length - 1
-                  ? () {
-                      // Focus Node
-                      focusNodes[number + 1].requestFocus();
-                      // Update text
-                      if (widget.text.length != widget.length) {
-                        widget.text = String.fromCharCodes(
-                          Iterable.generate(
-                            widget.length,
-                            (_) => ' '.codeUnits.first,
-                          ),
-                        );
-                      }
-                      widget.text = replaceCharAt(
-                        widget.text,
-                        number,
-                        controllers[number].text.characters.last,
-                      );
-                    }
-                  : () {
-                      // Update text
-                      if (widget.text.length != widget.length) {
-                        widget.text = String.fromCharCodes(
-                          Iterable.generate(
-                            widget.length,
-                            (_) => ' '.codeUnits.first,
-                          ),
-                        );
-                      }
-                      widget.text = replaceCharAt(
-                        widget.text,
-                        number,
-                        controllers[number].text.characters.last,
-                      );
-                    },
-              onColorChange: (int newColor) {
-                // Update Color
-                widget.colors[number] = newColor;
-              },
-            );
-          },
-        ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.length,
+        itemBuilder: (BuildContext context, int number) {
+          return WordleBox(
+            controller: controllers[number],
+            onEmptied: () {
+              widget.text = getText();
+              if (number != 0) {
+                FocusScope.of(context).previousFocus();
+              }
+            },
+            onFilled: () {
+              widget.text = getText();
+              FocusScope.of(context).nextFocus();
+            },
+            onColorChange: (int newVal) {
+              widget.colors[number] = newVal;
+            },
+            color: widget.colors[number],
+            enabled: widget.enabled,
+          );
+        },
       ),
     );
   }
