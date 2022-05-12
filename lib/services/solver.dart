@@ -4,13 +4,13 @@ import 'package:wordle_solver/global/sharedpreferences.dart';
 import 'package:wordle_solver/global/word_lists.dart';
 import 'package:wordle_solver/services/letter_utils.dart';
 
-enum solveStatus { unsolved, solved, failed }
+enum SolveStatus { unsolved, solved, failed }
 
 class Solver with ChangeNotifier {
   // Shared Variables (Public)
   List<List<int>> previousColors = [];
   List<String> previousGuesses = [];
-  Tuple2<String, solveStatus> status = const Tuple2("", solveStatus.unsolved);
+  Tuple2<String, SolveStatus> status = const Tuple2("", SolveStatus.unsolved);
 
   // Configuration Variables (Final)
   late int length;
@@ -139,11 +139,11 @@ class Solver with ChangeNotifier {
     }
 
     if (_solutions.isEmpty) {
-      status = const Tuple2("XXXXX", solveStatus.failed);
+      status = const Tuple2("XXXXX", SolveStatus.failed);
     } else if (_solutions.length == 1) {
-      status = Tuple2(_solutions.first, solveStatus.solved);
+      status = Tuple2(_solutions.first, SolveStatus.solved);
     } else {
-      status = Tuple2(_solutions.first, solveStatus.unsolved);
+      status = Tuple2(_solutions.first, SolveStatus.unsolved);
     }
     notifyListeners();
   }
@@ -156,6 +156,8 @@ class Solver with ChangeNotifier {
     // Initialize Variables
     _confirmedPositions = List.filled(length, "");
     _antiConfirmedPositions = List.filled(length, []);
+    _guaranteedLetterCount = {};
+    _minimumLetterCount = {};
 
     for (int i = 0; i < length; i++) {
       _antiConfirmedPositions[i] = [];
@@ -169,7 +171,7 @@ class Solver with ChangeNotifier {
     previousGuesses = [];
 
     // Update Status
-    status = const Tuple2("", solveStatus.unsolved);
+    status = const Tuple2("", SolveStatus.unsolved);
 
     // Notify Listeners
     notifyListeners();

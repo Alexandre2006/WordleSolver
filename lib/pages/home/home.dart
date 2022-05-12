@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:wordle_solver/global/solver.dart';
 import 'package:wordle_solver/pages/settings/settings.dart';
-import 'package:wordle_solver/services/solver.dart';
 import 'package:wordle_solver/shared/wordle_board.dart';
 
 class HomeScreen extends StatelessWidget {

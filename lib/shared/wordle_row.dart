@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:wordle_solver/fonts/fonts.dart';
 import 'package:wordle_solver/global/solver.dart';
 import 'package:wordle_solver/themes/wordle_colors.dart';
@@ -121,7 +120,7 @@ class _WordleRowState extends State<WordleRow> {
                             fontSize: 30,
                           ),
                           onChanged: (String newValue) {
-                            int length = newValue.length;
+                            final int length = newValue.length;
                             // If 0 characters are present, the backspace key was hit when the box was empty, so remove the contents of the previous box
                             if (length == 0) {
                               controllers[index].text = "\u200b";
@@ -214,8 +213,10 @@ class _WordleRowState extends State<WordleRow> {
                     }
                     // Check if valid
                     if (solver.validateGuess(currentText.toLowerCase())) {
-                      solver.guess(currentText.toLowerCase(),
-                          colors.sublist(0, widget.length));
+                      solver.guess(
+                        currentText.toLowerCase(),
+                        colors.sublist(0, widget.length),
+                      );
                     } else {
                       showDialog(
                         context: context,

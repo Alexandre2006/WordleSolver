@@ -29,7 +29,7 @@ class _WordleBoardState extends State<WordleBoard> {
       alignment: Alignment.center,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: solver.status.item2 != solveStatus.unsolved ? 7 : 6,
+        itemCount: solver.status.item2 != SolveStatus.unsolved ? 7 : 6,
         itemBuilder: (BuildContext context, int index) {
           // In the case that the row has been filled already
           if (index < solver.previousGuesses.length) {
@@ -50,10 +50,10 @@ class _WordleBoardState extends State<WordleBoard> {
                 text: solver.status.item1 == ""
                     ? null
                     : solver.status.item1.toUpperCase(),
-                enabled: solver.status.item2 == solveStatus.unsolved,
-                colors: solver.status.item2 == solveStatus.unsolved
+                enabled: solver.status.item2 == SolveStatus.unsolved,
+                colors: solver.status.item2 == SolveStatus.unsolved
                     ? List.filled(solver.length, 0)
-                    : solver.status.item2 == solveStatus.solved
+                    : solver.status.item2 == SolveStatus.solved
                         ? List.filled(solver.length, 2)
                         : List.filled(solver.length, -1),
               ),
