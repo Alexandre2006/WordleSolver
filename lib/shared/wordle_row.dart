@@ -39,7 +39,7 @@ class _WordleRowState extends State<WordleRow> {
           ? List.filled(widget.length, 0)
           : List.filled(widget.length, -1);
     } else {
-      colors = widget.colors!;
+      colors = List.from(widget.colors!);
     }
 
     // Add controllers & Focus Nodes
@@ -63,7 +63,7 @@ class _WordleRowState extends State<WordleRow> {
       child: Column(
         children: [
           SizedBox(
-            height: widget.enabled ? 100 : 54,
+            height: widget.enabled ? 102 : 54,
             width: widget.length * 54,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -211,7 +211,7 @@ class _WordleRowState extends State<WordleRow> {
                 child: SizedBox(
                   width: 125,
                   height: 35,
-                  child: TextButton.icon(
+                  child: TextButton(
                     onPressed: () {
                       String currentText = "";
                       for (int i = 0; i < widget.length; i++) {
@@ -256,11 +256,7 @@ class _WordleRowState extends State<WordleRow> {
                         );
                       }
                     },
-                    label: const Icon(Icons.arrow_right),
-                    icon: const Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: Text("Submit"),
-                    ),
+                    child: Text("Submit"),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(

@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
 
   flutter_phoenix: ^1.0.0
+  introduction_screen: ^3.0.2
+  is_first_run: ^1.0.0
   shared_preferences: ^2.0.13
   tuple: ^2.0.0
 
