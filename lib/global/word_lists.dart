@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:wordle_solver/data/words5.dart';
 
 Map<int, List<String>> wordLists = {};
 
@@ -11,4 +12,5 @@ Future<void> initWords() async {
             as List<dynamic>;
     wordLists[i] = dynamicWords.cast<String>();
   }
+  wordLists[5] = List.from(words5);
 }
