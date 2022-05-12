@@ -11,7 +11,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Wordle Solver"),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text("Wordle Solver"),
+        ),
         actions: [
           IconButton(
             onPressed: () {

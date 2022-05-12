@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
 
   flutter_phoenix: ^1.0.0
-  path_provider: ^2.0.10
   shared_preferences: ^2.0.13
   tuple: ^2.0.0
 
@@ -44,5 +43,15 @@ flutter:
         - asset: 'lib/fonts/Butler_Stencil/Butler_Medium_Stencil.otf'
         - asset: 'lib/fonts/Butler_Stencil/Butler_Regular_Stencil.otf'
         - asset: 'lib/fonts/Butler_Stencil/Butler_Ultra_Light_Stencil.otf'
+    - family: ClearSans
+      fonts:
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Bold.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-BoldItalic.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Italic.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Light.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Medium.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-MediumItalic.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Regular.ttf'
+        - asset: 'lib/fonts/Clear Sans/ClearSans-Thin.ttf'
   assets:
     - lib/data/

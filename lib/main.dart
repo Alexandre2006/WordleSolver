@@ -12,7 +12,9 @@ void main() {
   // Initialize Globals
   sharedPreferencesInit().then(
     (value) => {
-      initWords().then((value) => {runApp(Phoenix(child: MyApp()))})
+      initWords().then(
+        (value) => {runApp(Phoenix(child: MyApp()))},
+      )
     },
   );
 }
