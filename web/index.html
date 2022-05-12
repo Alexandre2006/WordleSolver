@@ -31,6 +31,54 @@
 
   <title>wordle_solver</title>
   <link rel="manifest" href="manifest.json">
+  <style type="text/css">
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* #loader {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    } */
+
+    .container {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(240, 235, 231);
+      text-align: center;
+      font-size: 0;
+      white-space: nowrap;
+      overflow: auto;
+    }
+
+    .container:after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .splash {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: left;
+      font-size: 14px;
+      white-space: normal;
+      max-width:100%;
+    max-height:100%;
+      }
+  </style>
 </head>
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
@@ -100,5 +148,12 @@
       loadMainDartJs();
     }
   </script>
+
+  <!--SPLASH SCREEN-->
+  <body>
+    <div id="loader" class="container">
+      <img class="splash" src="splash/cover.png"/>
+    </div>
+  </body>
 </body>
 </html>
