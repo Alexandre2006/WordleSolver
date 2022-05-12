@@ -5,11 +5,12 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromARGB(255, 255, 255, 255),
     iconTheme: IconThemeData(color: Colors.black),
+    surfaceTintColor: Colors.transparent,
     shape: Border(
       bottom: BorderSide(color: Color.fromARGB(255, 212, 214, 218)),
     ),
     titleTextStyle: TextStyle(
-      fontFamily: karnakCondensed,
+      fontFamily: butler,
       fontSize: 37,
       color: Colors.black,
     ),

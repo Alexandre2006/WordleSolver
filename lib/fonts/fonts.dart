@@ -1,3 +1,3 @@
-const String helveticaNeue = 'HelveticaNeue';
+const String butler = 'Butler';
+const String butlerStencil = 'ButlerStencil';
 const String clearSans = 'ClearSans';
-const String karnakCondensed = 'KarnakCondensed';

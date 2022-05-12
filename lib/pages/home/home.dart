@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:wordle_solver/global/solver.dart';
+import 'package:wordle_solver/pages/docs/docs.dart';
 import 'package:wordle_solver/pages/settings/settings.dart';
-import 'package:wordle_solver/services/solver.dart';
 import 'package:wordle_solver/shared/wordle_board.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +12,22 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Wordle Solver"),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 5.0),
+          child: FittedBox(
+            child: Text("Wordle Solver"),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const DocsScreen(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.help),
+        ),
         actions: [
           IconButton(
             onPressed: () {

@@ -7,7 +7,9 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     shape: Border(
       bottom: BorderSide(color: Color.fromARGB(255, 58, 57, 61)),
     ),
-    titleTextStyle: TextStyle(fontFamily: karnakCondensed, fontSize: 37),
+    titleTextStyle:
+        TextStyle(fontFamily: butler, fontSize: 37, color: Colors.white),
+    surfaceTintColor: Colors.transparent,
     elevation: 1,
   ),
   useMaterial3: true,

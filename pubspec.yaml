@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   flutter_phoenix: ^1.0.0
-  path_provider: ^2.0.10
+  introduction_screen: ^3.0.2
   shared_preferences: ^2.0.13
   tuple: ^2.0.0
 
@@ -26,6 +26,24 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
+    - family: Butler
+      fonts:
+        - asset: 'lib/fonts/Butler/Butler_Black.otf'
+        - asset: 'lib/fonts/Butler/Butler_Bold.otf'
+        - asset: 'lib/fonts/Butler/Butler_ExtraBold.otf'
+        - asset: 'lib/fonts/Butler/Butler_Light.otf'
+        - asset: 'lib/fonts/Butler/Butler_Medium.otf'
+        - asset: 'lib/fonts/Butler/Butler_Regular.otf'
+        - asset: 'lib/fonts/Butler/Butler_Ultra_Light.otf'
+    - family: ButlerStencil
+      fonts:
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Black_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Bold_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_ExtraBold_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Light_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Medium_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Regular_Stencil.otf'
+        - asset: 'lib/fonts/Butler_Stencil/Butler_Ultra_Light_Stencil.otf'
     - family: ClearSans
       fonts:
         - asset: 'lib/fonts/Clear Sans/ClearSans-Bold.ttf'
@@ -36,11 +54,5 @@ flutter:
         - asset: 'lib/fonts/Clear Sans/ClearSans-MediumItalic.ttf'
         - asset: 'lib/fonts/Clear Sans/ClearSans-Regular.ttf'
         - asset: 'lib/fonts/Clear Sans/ClearSans-Thin.ttf'
-    - family: HelveticaNeue
-      fonts:
-        - asset: 'lib/fonts/Helvetica Neue/HelveticaNeue.ttf'
-    - family: KarnakCondensed
-      fonts:
-        - asset: 'lib/fonts/Karnak Condensed/karnakcondensed-normal-700.ttf'
   assets:
     - lib/data/

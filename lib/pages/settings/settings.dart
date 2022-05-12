@@ -14,12 +14,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Preferences",
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Text(
+            "Preferences",
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
           ),
         ),
       ),
