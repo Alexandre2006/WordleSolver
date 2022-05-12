@@ -12,5 +12,6 @@ Future<void> initWords() async {
             as List<dynamic>;
     wordLists[i] = dynamicWords.cast<String>();
   }
+  wordLists[55] = List.from(wordLists[5]!);
   wordLists[5] = List.from(words5);
 }

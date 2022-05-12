@@ -179,6 +179,10 @@ class Solver with ChangeNotifier {
 
   // Guess Validator
   bool validateGuess(String guess) {
-    return wordLists[length]!.contains(guess);
+    if (guess.length == 5) {
+      return wordLists[55]!.contains(guess);
+    } else {
+      return wordLists[length]!.contains(guess);
+    }
   }
 }
