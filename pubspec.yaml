@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   flutter_phoenix: ^1.0.0
+  path_provider: ^2.0.10
   shared_preferences: ^2.0.13
   tuple: ^2.0.0
 
@@ -41,3 +42,5 @@ flutter:
     - family: KarnakCondensed
       fonts:
         - asset: 'lib/fonts/Karnak Condensed/karnakcondensed-normal-700.ttf'
+  assets:
+    - lib/data/

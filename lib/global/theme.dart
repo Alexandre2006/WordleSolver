@@ -1,5 +1,3 @@
-// ignore_for_file: use_setters_to_change_properties
-
 import 'package:flutter/material.dart';
 import 'package:wordle_solver/global/sharedpreferences.dart';
 
