@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:wordle_solver/data/allwords5.dart';
-import 'package:wordle_solver/data/words.dart';
 import 'package:wordle_solver/global/sharedpreferences.dart';
+import 'package:wordle_solver/global/word_lists.dart';
 import 'package:wordle_solver/services/letter_utils.dart';
 
 enum solveStatus { unsolved, solved, failed }
@@ -11,33 +10,21 @@ class Solver with ChangeNotifier {
   // Shared Variables (Public)
   List<List<int>> previousColors = [];
   List<String> previousGuesses = [];
+  Tuple2<String, solveStatus> status = const Tuple2("", solveStatus.unsolved);
 
   // Configuration Variables (Final)
-  late final int length;
+  late int length;
 
   // Internal Variables (Private)
   late List<List<String>> _antiConfirmedPositions;
-  final Map<String, int> _guaranteedLetterCount = {};
-  final Map<String, int> _minimumLetterCount = {};
+  Map<String, int> _guaranteedLetterCount = {};
+  Map<String, int> _minimumLetterCount = {};
   late List<String> _confirmedPositions;
   List<String> _solutions = [];
 
   // Instantiation - Create Object
   Solver() {
-    // Setup Length
-    length =
-        sharedPreferences.getInt("dev.thinkalex.solver.wordle_length") ?? 5;
-
-    // Initialize Variables
-    _confirmedPositions = List.filled(length, "");
-    _antiConfirmedPositions = List.filled(length, []);
-
-    for (int i = 0; i < length; i++) {
-      _antiConfirmedPositions[i] = [];
-    }
-
-    // Load Words
-    _solutions = words[length]!;
+    reset();
   }
 
   // Checks word using gathered data
@@ -133,7 +120,7 @@ class Solver with ChangeNotifier {
     }
   }
 
-  Tuple2<String, solveStatus> guess(String guess, List<int> guessColors) {
+  void guess(String guess, List<int> guessColors) {
     // Update frontend data
     previousColors.add(guessColors);
     previousGuesses.add(guess);
@@ -147,25 +134,49 @@ class Solver with ChangeNotifier {
     // Return optimal solution
     if (_solutions.isEmpty) {
       // Retry before returning
-      _solutions = words[length]!;
+      _solutions = List.from(wordLists[length]!);
       _removeAllInvalidGuesses();
     }
 
     if (_solutions.isEmpty) {
-      return const Tuple2("XXXXX", solveStatus.failed);
+      status = const Tuple2("XXXXX", solveStatus.failed);
     } else if (_solutions.length == 1) {
-      return Tuple2(_solutions.first, solveStatus.solved);
+      status = Tuple2(_solutions.first, solveStatus.solved);
     } else {
-      return Tuple2(_solutions.first, solveStatus.unsolved);
+      status = Tuple2(_solutions.first, solveStatus.unsolved);
     }
+    notifyListeners();
+  }
+
+  void reset() {
+    // Setup Length
+    length =
+        sharedPreferences.getInt("dev.thinkalex.solver.wordle_length") ?? 5;
+
+    // Initialize Variables
+    _confirmedPositions = List.filled(length, "");
+    _antiConfirmedPositions = List.filled(length, []);
+
+    for (int i = 0; i < length; i++) {
+      _antiConfirmedPositions[i] = [];
+    }
+
+    // Load Words
+    _solutions = List.from(wordLists[length]!);
+
+    // Remove Previous Guess
+    previousColors = [];
+    previousGuesses = [];
+
+    // Update Status
+    status = const Tuple2("", solveStatus.unsolved);
+
+    // Notify Listeners
+    notifyListeners();
   }
 
   // Guess Validator
   bool validateGuess(String guess) {
-    if (length == 5) {
-      print(allWords5.contains(guess));
-      return allWords5.contains(guess);
-    }
-    return words[length]!.contains(guess);
+    return wordLists[length]!.contains(guess);
   }
 }
