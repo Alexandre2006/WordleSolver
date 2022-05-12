@@ -117,7 +117,7 @@ class _WordleRowState extends State<WordleRow> {
                             contentPadding: EdgeInsets.zero,
                           ),
                           style: const TextStyle(
-                            fontFamily: clearSans,
+                            fontFamily: butler,
                             fontSize: 30,
                           ),
                           onChanged: (String newValue) {

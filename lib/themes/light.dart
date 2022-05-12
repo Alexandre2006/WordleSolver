@@ -9,7 +9,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
       bottom: BorderSide(color: Color.fromARGB(255, 212, 214, 218)),
     ),
     titleTextStyle: TextStyle(
-      fontFamily: karnakCondensed,
+      fontFamily: butler,
       fontSize: 37,
       color: Colors.black,
     ),
