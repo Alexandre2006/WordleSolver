@@ -117,9 +117,13 @@ class _WordleRowState extends State<WordleRow> {
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.zero,
                             ),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: clearSans,
-                              color: Colors.white,
+                              color: Theme.of(context).brightness ==
+                                          Brightness.light &&
+                                      widget.colors![index] == -1
+                                  ? Colors.black
+                                  : Colors.white,
                               fontSize: 30,
                             ),
                             onChanged: (String newValue) {
@@ -256,7 +260,6 @@ class _WordleRowState extends State<WordleRow> {
                         );
                       }
                     },
-                    child: Text("Submit"),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -280,6 +283,7 @@ class _WordleRowState extends State<WordleRow> {
                         ),
                       ),
                     ),
+                    child: const Text("Submit"),
                   ),
                 ),
               ),
