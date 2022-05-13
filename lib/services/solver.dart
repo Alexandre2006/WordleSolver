@@ -138,6 +138,14 @@ class Solver with ChangeNotifier {
       _removeAllInvalidGuesses();
     }
 
+    if (!guessColors.contains(1) && !guessColors.contains(0)) {
+      previousGuesses.removeLast();
+      previousColors.removeLast();
+      status = Tuple2(guess, SolveStatus.solved);
+      notifyListeners();
+      return;
+    }
+
     if (_solutions.isEmpty) {
       status = const Tuple2("XXXXX", SolveStatus.failed);
     } else if (_solutions.length == 1) {
