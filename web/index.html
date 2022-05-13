@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Improve Loading Speeds-->
+  <script src="/canvaskit/canvaskit.js"></script>
+  <link rel="preload" href="/canvaskit/canvaskit.wasm" as="fetch" crossOrigin="anonymous">
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -30,7 +33,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Social Preview -->
+  <meta property="og:title" content="Wordle Solver | Made by ThinkAlex">
+  <meta property="og:description" content="A neat little tool to help you solve your Wordle puzzles!">
+  <meta property="og:image" content="preview_image.png">
+
 
   <title>Loading Wordle Solver...</title>
   <link rel="manifest" href="manifest.json">
@@ -155,7 +163,7 @@
   <!--SPLASH SCREEN-->
   <body>
     <div id="loader" class="container">
-      <img class="splash" src="splash/cover.png"/>
+      <img class="splash" alt="Loading Wordle Solver..." src="splash/cover.png"/>
     </div>
   </body>
 </body>

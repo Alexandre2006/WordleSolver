@@ -3,7 +3,7 @@ description: An easy to use Worldle solver, with support for a wide variety of w
 
 publish_to: 'none'
 
-version: 1.0.0
+version: 1.0.1
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
