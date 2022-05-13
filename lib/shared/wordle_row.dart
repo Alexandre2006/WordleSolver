@@ -121,7 +121,7 @@ class _WordleRowState extends State<WordleRow> {
                               fontFamily: clearSans,
                               color: Theme.of(context).brightness ==
                                           Brightness.light &&
-                                      widget.colors![index] == -1
+                                      colors[index] == -1
                                   ? Colors.black
                                   : Colors.white,
                               fontSize: 30,
