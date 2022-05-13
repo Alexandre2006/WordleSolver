@@ -1,7 +1,7 @@
 {
-    "name": "wordle_solver",
-    "short_name": "wordle_solver",
-    "start_url": ".",
+    "name": "Wordle Solver",
+    "short_name": "Solver",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
