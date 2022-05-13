@@ -153,6 +153,12 @@ class Solver with ChangeNotifier {
     } else {
       status = Tuple2(_solutions.first, SolveStatus.unsolved);
     }
+
+    if (previousGuesses.length == 6 && status.item2 == SolveStatus.solved) {
+      previousGuesses.removeLast();
+      previousColors.removeLast();
+      status = const Tuple2("XXXXX", SolveStatus.failed);
+    }
     notifyListeners();
   }
 
